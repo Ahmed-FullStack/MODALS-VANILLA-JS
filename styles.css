@@ -1,0 +1,146 @@
+@import url(./paperRipple/PaperRipple.css);
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	font-family: 'Google Sans Display';
+	font-weight: 700;
+	/* user-select: none; */
+}
+body.freeze-scroll {
+	overflow: hidden;
+}
+h3 {
+	font-size: 1.3rem;
+}
+:root *::-webkit-scrollbar {
+	width: 0;
+}
+
+@keyframes model-open {
+	0% {
+		scale: 0.15;
+	}
+
+	100% {
+		scale: 1;
+	}
+}
+
+@keyframes modal-close {
+	0% {
+		scale: 1;
+	}
+	100% {
+		scale: 0;
+	}
+}
+input {
+	border-radius: 55rem;
+	padding: 0.15rem 0.75rem;
+	font-size: 1.08rem;
+	box-shadow: 0 0 2rem hsl(0 0% 0% / 0.1);
+}
+button {
+	--paper-ripple-bg: rgb(0, 43, 71);
+	padding: 0.8em 1.2em;
+	background-color: hsl(209, 59%, 88%);
+	font-weight: 500;
+	font-size: 1rem;
+	transition: background-color 200ms ease;
+}
+:where(button, input) {
+	border-radius: 55rem;
+	border: none;
+}
+:where(button, input):focus-visible {
+	outline: 0.15rem solid rgb(0, 195, 255);
+	outline-offset: 0.1rem;
+}
+button:focus-visible {
+	background-color: rgba(151, 201, 245, 0.849);
+}
+
+button:hover {
+	background-color: rgba(151, 201, 245, 0.849);
+}
+.flex {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+}
+.modal-box {
+	outline: none;
+	z-index: 90;
+	position: fixed;
+	bottom: 0;
+	-webkit-user-drag: none;
+	top: 0;
+	user-select: none;
+	-webkit-user-drag: none;
+	right: 0;
+	height: fit-content;
+	left: 0;
+	margin: auto;
+	scale: 0;
+	padding: 2em;
+	border-radius: 20px;
+	background-color: aliceblue;
+	width: min(600px, 80vw);
+	max-height: min(700px, 70vh);
+	overflow: scroll;
+	box-shadow: 0 9px 40px hsl(0 0% 0% / 0.3);
+	pointer-events: none;
+}
+.modal-box.show {
+	pointer-events: auto;
+	scale: 1;
+	animation: model-open 300ms ease;
+}
+
+.modal-box.disappear {
+	pointer-events: none;
+	scale: 0;
+	animation: modal-close 250ms ease;
+}
+
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+}
+
+.backdrop {
+	z-index: 89;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	width: 100vw;
+	height: 100vh;
+	pointer-events: none;
+	background-color: hsl(0 0% 0% / 0.7);
+	opacity: 0;
+	transition: opacity 200ms ease-out;
+}
+
+.backdrop.appear {
+	pointer-events: auto;
+	opacity: 1;
+}
+
+.backdrop.disappear {
+	pointer-events: none;
+	opacity: 0;
+}
+
+.false {
+	position: absolute;
+	top: 0.5em;
+	right: 0.5em;
+	background-color: rgb(118, 184, 238);
+}
